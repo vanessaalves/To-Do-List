@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="toDo">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Todo</title>
+	<style>
+	.done{
+		text-decoration: line-through;
+	}
+	</style>
+</head>
+	<body>
+		<div class="container col-xs-12 col-md-6">
+			<header>
+				<div class="page-header">
+					<h1>Lista de Tarefas</h1>
+				</div>
+			</header>
+			<article>
+				<h4>Faça sua lista e organize-se</h4>
+					<div ng-controller="todoController">
+						<form name="form" ng-submit="addTodo()">
+							<div class="form-group col-xs-8 col-md-8">
+								<input type="text" name="newtodo" class="form-control" ng-model="newtodo" required />
+							</div>
+							<div class="form-group">
+								<button class="btn btn-success" ng-disabled="form.$invalid">Ok</button>
+							</div>
+					</form>
+					<div class="panel panel-primary hidden-xs">
+						<div class="panel-heading">
+					    	<h3 class="panel-title">Tarefas Pendentes: {{(todos | filter:{done: false}).length}}</h3>
+					    </div>		
+					    <div class="panel-body">
+							<ul class="list-unstyled">
+								<li ng-repeat="todo in todos | filter:{done: false}">
+									<input type="checkbox" ng-model="todo.done"/>
+									<span>{{todo.tarefa}}</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="panel panel-primary hidden-xs">
+						<div class="panel-heading">
+							<h3 class="panel-title">Tarefas Concluídas: {{(todos | filter:{done: true}).length}}</h3>
+						</div>
+						<div class="panel-body">
+			        		<ul class="list-unstyled">
+					            <li ng-repeat="todo in todos | filter:{done: true}">
+					            	<input type="checkbox" ng-model="todo.done"/>
+					                <span ng-class="{'done':todo.done}">{{todo.tarefa}}</span>
+					            </li>
+					        </ul>
+					    </div>
+					</div>
+					<div class="panel panel-primary visible-xs">
+						<div class="panel-heading">
+							<h3 class="panel-title">Tarefas Pendentes: {{(todos | filter:{done: false}).length}}</h3>
+						</div>
+						<div class="panel-body">
+			        		<ul class="list-unstyled">
+					            <li ng-repeat="todo in todos">
+					            	<input type="checkbox" ng-model="todo.done"/>
+					                <span ng-class="{'done':todo.done}">{{todo.tarefa}}</span>
+					            </li>
+					        </ul>
+					    </div>
+					</div>
+					<button class="btn btn-default small" ng-click="clearTrue()">Limpar concluídas</button>		       
+			    </div>
+			</article>
+		</div>		
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js">
+	</script>
+	<script type="text/javascript" src="js/javascript.js"></script>
+	</body>
+</html>
